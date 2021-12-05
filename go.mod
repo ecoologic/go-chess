@@ -1,3 +1,3 @@
-module go-chess
+module first
 
 go 1.17
