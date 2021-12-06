@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type boardMatrixType [8][8]string
@@ -24,9 +25,6 @@ type boardType struct {
 // X A B C D E F G H
 // white lowercase
 
-// file: letter
-// rank: number
-
 func makeBoard() boardMatrixType {
 	return boardMatrixType{
 		{"r", "n", "b", "q", "k", "b", "n", "r"}, // [0][0] (1A) White
@@ -40,65 +38,25 @@ func makeBoard() boardMatrixType {
 	}
 }
 
-func positionToCoordinates(position string) (int, int) {
-	fileCoord := 0
-	rankCoord, _ := strconv.Atoi(position[1:1])
-	return fileCoord, rankCoord
+// board, position, coord, index
+// file, letter, y, column
+// rank, number, x, row
+func matrixColumnIndex(position string) (result int) {
+	result = int(strings.ToUpper(position)[0]) - int("A"[0])
+	return // naked return
+}
+
+func matrixRowIndex(position string) int {
+	rank1to8, _ := strconv.Atoi(string(position[1]))
+	return rank1to8 - 1
 }
 
 func boardAt(board boardMatrixType, position string) string {
-	fileCoord, rankCoord := positionToCoordinates(position)
-	return board[rankCoord][fileCoord]
+	return board[matrixRowIndex(position)][matrixColumnIndex(position)]
 }
 
 func main() {
-	board := boardType{}
-	fmt.Println("The board is: ", board.boardMatrix)
-	fmt.Println("A1 is: ", boardAt(makeBoard(), "A1"))
+	board := makeBoard()
+	fmt.Println("The board is: ", board)
+	fmt.Println("A1 is: ", boardAt(board, "A1"))
 }
-
-// func main() {
-// 	fmt.Println("Hello World", Calculate(5))
-// 	var x int = 3
-// 	var a [4]int
-// 	b := []int{5, 4, 3, 2, 1}
-// 	b = append(b, 0)
-// 	c := make(map[string]int)
-// 	c["ok"] = 1
-// 	c["sure"] = 2
-// 	delete(c, "sure")
-// 	for i := 0; i < 5; i++ {
-// 		fmt.Println(i)
-// 	}
-// 	for i, v := range b {
-// 		fmt.Println(i, sum(v, 10))
-// 	}
-
-// 	p := person{name: "erik", age: 41}
-// 	fmt.Println(x, a, b, c, p)
-
-// 	// pointers
-
-// 	n := 7
-// 	inc(&n)
-// 	fmt.Println("pointers: ", n)
-// }
-
-// func inc(n *int) {
-// 	*n++
-// }
-
-// type person struct {
-// 	name string
-// 	age  int
-// }
-
-// // Calculate returns x + 2.
-// func Calculate(x int) (result int) {
-// 	result = x + 2
-// 	return result
-// }
-
-// func sum(x int, y int) int {
-// 	return x + y
-// }

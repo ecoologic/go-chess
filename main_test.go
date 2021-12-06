@@ -34,4 +34,9 @@ func TestBoardAt(t *testing.T) {
 	if piece2 != "Q" {
 		t.Error(fmt.Sprintf("board at D8 should be a black queen, but was %s", piece2))
 	}
+
+	piece3 := boardAt(board, "G1")
+	if piece3 != "n" {
+		t.Error(fmt.Sprintf("board at G1 should be a white knight, but was %s", piece3))
+	}
 }
