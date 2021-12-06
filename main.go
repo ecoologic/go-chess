@@ -6,12 +6,6 @@ import (
 	"strings"
 )
 
-type boardMatrixType [8][8]string
-
-type boardType struct {
-	boardMatrix boardMatrixType
-}
-
 // BLACK uppercase
 // X A B C D E F G H
 // 8 R N B Q K B N R
@@ -25,8 +19,8 @@ type boardType struct {
 // X A B C D E F G H
 // white lowercase
 
-func makeBoard() boardMatrixType {
-	return boardMatrixType{
+func MakeBoard() BoardType {
+	board := boardMatrixType{
 		{"r", "n", "b", "q", "k", "b", "n", "r"}, // [0][0] (1A) White
 		{"p", "p", "p", "p", "p", "p", "p", "p"},
 		{"_", "_", "_", "_", "_", "_", "_", "_"},
@@ -36,6 +30,17 @@ func makeBoard() boardMatrixType {
 		{"P", "P", "P", "P", "P", "P", "P", "P"},
 		{"R", "N", "B", "Q", "K", "B", "N", "R"}, // [7][7] (8H) Black
 	}
+	return BoardType{board}
+}
+
+type boardMatrixType [8][8]string
+
+type BoardType struct {
+	boardMatrix boardMatrixType
+}
+
+func (b BoardType) At(position string) string {
+	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
 }
 
 // board, position, coord, index
@@ -56,7 +61,7 @@ func boardAt(board boardMatrixType, position string) string {
 }
 
 func main() {
-	board := makeBoard()
+	board := MakeBoard()
 	fmt.Println("The board is: ", board)
-	fmt.Println("A1 is: ", boardAt(board, "A1"))
+	fmt.Println("A1 is: ", board.At("A1"))
 }
