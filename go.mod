@@ -1,3 +1,3 @@
-module first
+module ecoologic-chess
 
 go 1.17
