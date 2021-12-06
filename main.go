@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type boardMatrixType [8][8]string
 
@@ -21,6 +24,9 @@ type boardType struct {
 // X A B C D E F G H
 // white lowercase
 
+// file: letter
+// rank: number
+
 func makeBoard() boardMatrixType {
 	return boardMatrixType{
 		{"r", "n", "b", "q", "k", "b", "n", "r"}, // [0][0] (1A) White
@@ -34,9 +40,21 @@ func makeBoard() boardMatrixType {
 	}
 }
 
+func positionToCoordinates(position string) (int, int) {
+	fileCoord := 0
+	rankCoord, _ := strconv.Atoi(position[1:1])
+	return fileCoord, rankCoord
+}
+
+func boardAt(board boardMatrixType, position string) string {
+	fileCoord, rankCoord := positionToCoordinates(position)
+	return board[rankCoord][fileCoord]
+}
+
 func main() {
 	board := boardType{}
 	fmt.Println("The board is: ", board.boardMatrix)
+	fmt.Println("A1 is: ", boardAt(makeBoard(), "A1"))
 }
 
 // func main() {

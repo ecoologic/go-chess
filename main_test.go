@@ -20,5 +20,18 @@ func TestNewBoardMatrix(t *testing.T) {
 	if E5 != "_" {
 		t.Error(fmt.Sprintf("board should start nothing in E5, but was %s", E5))
 	}
+}
 
+func TestBoardAt(t *testing.T) {
+	board := makeBoard()
+	piece1 := boardAt(board, "A1")
+
+	if piece1 != "r" {
+		t.Error(fmt.Sprintf("board at A1 should be a white rook, but was %s", piece1))
+	}
+
+	piece2 := boardAt(board, "D8")
+	if piece2 != "Q" {
+		t.Error(fmt.Sprintf("board at D8 should be a black queen, but was %s", piece2))
+	}
 }
