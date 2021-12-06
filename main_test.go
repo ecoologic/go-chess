@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestNewBoard(t *testing.T) {
-	board := newBoard()
+func TestNewBoardMatrix(t *testing.T) {
+	board := makeBoard()
 	A8 := board[7][0]
 	D1 := board[0][3]
 	E5 := board[4][4]

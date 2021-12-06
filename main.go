@@ -2,7 +2,11 @@ package main
 
 import "fmt"
 
-type boardType [8][8]string
+type boardMatrixType [8][8]string
+
+type boardType struct {
+	boardMatrix boardMatrixType
+}
 
 // BLACK uppercase
 // X A B C D E F G H
@@ -17,22 +21,22 @@ type boardType [8][8]string
 // X A B C D E F G H
 // white lowercase
 
-func newBoard() boardType {
-	return boardType{
-		{"r", "n", "b", "q", "k", "b", "n", "r"}, // 0 White
+func makeBoard() boardMatrixType {
+	return boardMatrixType{
+		{"r", "n", "b", "q", "k", "b", "n", "r"}, // [0][0] (1A) White
 		{"p", "p", "p", "p", "p", "p", "p", "p"},
 		{"_", "_", "_", "_", "_", "_", "_", "_"},
 		{"_", "_", "_", "_", "_", "_", "_", "_"},
 		{"_", "_", "_", "_", "_", "_", "_", "_"}, // Assigned inverted
 		{"_", "_", "_", "_", "_", "_", "_", "_"},
 		{"P", "P", "P", "P", "P", "P", "P", "P"},
-		{"R", "N", "B", "Q", "K", "B", "N", "R"}, // 7 Black
+		{"R", "N", "B", "Q", "K", "B", "N", "R"}, // [7][7] (8H) Black
 	}
 }
 
 func main() {
-	board := newBoard()
-	fmt.Println("The board is: ", board)
+	board := boardType{}
+	fmt.Println("The board is: ", board.boardMatrix)
 }
 
 // func main() {
