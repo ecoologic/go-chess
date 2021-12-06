@@ -43,6 +43,11 @@ func (b BoardType) At(position positionType) pieceType {
 	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
 }
 
+func (b BoardType) Move(origin positionType, destination positionType) {
+	b.boardMatrix[matrixRowIndex(destination)][matrixColumnIndex(destination)] =
+		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
+}
+
 //////////
 
 type positionType = string
@@ -67,3 +72,15 @@ func main() {
 	fmt.Println("The board is: ", board)
 	fmt.Println("D8 is: ", string(board.At("D8")))
 }
+
+/////////////
+
+// type MoveType struct {
+// 	board       BoardType
+// 	origin      positionType
+// 	destination positionType
+// }
+
+// func (move MoveType) Unchecked() {
+// 	move.board.move(move.origin, move.destination)
+// }

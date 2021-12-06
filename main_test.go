@@ -39,8 +39,17 @@ func TestBoardAt(t *testing.T) {
 	}
 }
 
-// func TestMove(t *testing.T) {
-// 	const board = MakeBoard()
+func TestBoardMovePawnE2toE3(t *testing.T) {
+	origin := "E2"
+	destination := "E3"
+	board := MakeBoard()
+	piece := board.At(origin)
 
-// 	board = Move(board, "E2", "E3")
-// }
+	board.Move(origin, destination)
+
+	if board.At(origin) != '_' && board.At(destination) != piece {
+		t.Error(fmt.Sprintf(
+			"Pawn Move error: E2 should be '_' and E3 'p', but was '%c' and '%c'",
+			board.At(origin), board.At(destination)), board)
+	}
+}
