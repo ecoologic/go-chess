@@ -62,10 +62,6 @@ func matrixRowIndex(position positionType) int {
 	return rank1to8 - 1
 }
 
-func boardAt(board boardMatrixType, position positionType) pieceType {
-	return board[matrixRowIndex(position)][matrixColumnIndex(position)]
-}
-
 func main() {
 	board := MakeBoard()
 	fmt.Println("The board is: ", board)
