@@ -1,3 +1,4 @@
+// https://cdn.britannica.com/71/7471-004-C94F7C98/chessmen-Position-beginning-game-queen-rook-king.jpg
 package main
 
 import (
@@ -48,15 +49,39 @@ func (b *BoardType) Move(origin positionType, destination positionType) {
 		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
 }
 
+func validatePawnMove(move MoveType) bool {
+	return true
+}
+
 //////////
 
+type MoveType struct {
+	board  BoardType
+	origin positionType
+	// destination positionType
+}
+
+func (m MoveType) IsValid() bool {
+	piece := m.board.At(m.origin)
+	switch piece {
+	case 'p':
+		return validatePawnMove(m)
+	default:
+		return false
+	}
+}
+
+//////////
+
+// squares
+// ??? position -> notation
 type positionType = string
 type pieceType rune
 type boardMatrixType [8][8]pieceType
 
-// board, position, coord, index
-// file, letter, y, column
-// rank, number, x, row
+// board | position | coord | index
+// file  | letter   | y     | column
+// rank  | number   | x     | row
 func matrixColumnIndex(position positionType) (result int) {
 	result = int(strings.ToUpper(position)[0]) - int('A')
 	return // naked return

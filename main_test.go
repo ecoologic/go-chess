@@ -53,3 +53,18 @@ func TestBoardMovePawnE2toE3(t *testing.T) {
 			board.At(origin), board.At(destination)), board)
 	}
 }
+
+func TestMoveOpenPawnE2toE4(t *testing.T) {
+	origin := "E2"
+	destination := "E4"
+	board := MakeBoard()
+
+	board.Move("B1", "C3")          // Obstructs the corridor for opening by 2
+	move := MoveType{board, origin} // destination
+
+	if move.IsValid() {
+		t.Error(fmt.Sprintf(
+			"Move shouldn't be valid '%c', '%c'",
+			board.At(origin), board.At(destination)), board)
+	}
+}
