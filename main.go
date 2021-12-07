@@ -43,7 +43,7 @@ func (b BoardType) At(position positionType) pieceType {
 	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
 }
 
-func (b BoardType) Move(origin positionType, destination positionType) {
+func (b *BoardType) Move(origin positionType, destination positionType) {
 	b.boardMatrix[matrixRowIndex(destination)][matrixColumnIndex(destination)] =
 		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
 }
