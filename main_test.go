@@ -33,38 +33,38 @@ func TestBoardAt(t *testing.T) {
 	pieceByPosition["G1"] = 'n'
 
 	for position, piece := range pieceByPosition {
-		if board.At(position) != piece {
+		if board.at(position) != piece {
 			t.Error(fmt.Sprintf("board at %s should be a black knight, but was %c", position, piece))
 		}
 	}
 }
 
-func TestBoardMovePawnE2toE3(t *testing.T) {
+func TestBoardMovePawnAheadValid(t *testing.T) {
 	origin := "E2"
 	destination := "E3"
 	board := MakeBoard()
-	piece := board.At(origin)
+	piece := board.at(origin)
 
 	board.Move(origin, destination)
 
-	if board.At(origin) != '_' && board.At(destination) != piece {
+	if board.at(origin) != '_' && board.at(destination) != piece {
 		t.Error(fmt.Sprintf(
-			"Pawn Move error: E2 should be '_' and E3 'p', but was '%c' and '%c'",
-			board.At(origin), board.At(destination)), board)
+			"Move Pawn ahead valid error: E2 should be '_' and E3 'p', but was '%c' and '%c'",
+			board.at(origin), board.at(destination)), board)
 	}
 }
-
-func TestMoveOpenPawnE2toE4(t *testing.T) {
+func TestBoardMovePawnAheadOccupied(t *testing.T) {
 	origin := "E2"
-	destination := "E4"
+	destination := "E3"
 	board := MakeBoard()
+	piece := board.at(origin)
+	board.Move("B1", "C3") // Occupy destination
 
-	board.Move("B1", "C3")          // Obstructs the corridor for opening by 2
-	move := MoveType{board, origin} // destination
+	board.Move(origin, destination)
 
-	if move.IsValid() {
+	if board.at(origin) != piece && board.at(destination) != '_' {
 		t.Error(fmt.Sprintf(
-			"Move shouldn't be valid '%c', '%c'",
-			board.At(origin), board.At(destination)), board)
+			"Move Pawn ahead occupied error: origin '%c' and destination '%c'",
+			board.at(origin), board.at(destination)), board)
 	}
 }

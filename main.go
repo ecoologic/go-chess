@@ -40,7 +40,7 @@ type BoardType struct {
 	boardMatrix boardMatrixType
 }
 
-func (b BoardType) At(position positionType) pieceType {
+func (b BoardType) at(position positionType) pieceType {
 	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
 }
 
@@ -50,25 +50,39 @@ func (b *BoardType) Move(origin positionType, destination positionType) {
 }
 
 func validatePawnMove(move MoveType) bool {
-	return true
+	switch {
+	case move.deltaFile() == 1 && move.AtDestination() != '_':
+		return true
+	default:
+		return false
+	}
 }
 
 //////////
 
 type MoveType struct {
-	board  BoardType
-	origin positionType
-	// destination positionType
+	board       BoardType
+	origin      positionType
+	destination positionType
 }
 
 func (m MoveType) IsValid() bool {
-	piece := m.board.At(m.origin)
-	switch piece {
-	case 'p':
+	piece := m.board.at(m.origin)
+	// Both black and white
+	switch strings.ToUpper(string(piece)) {
+	case "P":
 		return validatePawnMove(m)
 	default:
 		return false
 	}
+}
+
+func (m MoveType) deltaFile() int {
+	return matrixColumnIndex(m.destination) - matrixColumnIndex(m.origin)
+}
+
+func (m MoveType) AtDestination() pieceType {
+	return m.board.at(m.destination)
 }
 
 //////////
@@ -79,9 +93,9 @@ type positionType = string
 type pieceType rune
 type boardMatrixType [8][8]pieceType
 
-// board | position | coord | index
-// file  | letter   | y     | column
-// rank  | number   | x     | row
+// board | notation | index
+// file  | letter   | column
+// rank  | number   | row
 func matrixColumnIndex(position positionType) (result int) {
 	result = int(strings.ToUpper(position)[0]) - int('A')
 	return // naked return
@@ -95,7 +109,7 @@ func matrixRowIndex(position positionType) int {
 func main() {
 	board := MakeBoard()
 	fmt.Println("The board is: ", board)
-	fmt.Println("D8 is: ", string(board.At("D8")))
+	fmt.Println("D8 is: ", string(board.at("D8")))
 }
 
 /////////////
