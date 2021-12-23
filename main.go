@@ -1,5 +1,5 @@
 // https://cdn.britannica.com/71/7471-004-C94F7C98/chessmen-Position-beginning-game-queen-rook-king.jpg
-package ecoologicChess
+package main
 
 import (
 	"fmt"

@@ -1,9 +1,8 @@
-package ecoologicChess
+package main
 
 import (
 	"strings"
 )
-
 
 // BLACK uppercase
 // X A B C D E F G H
@@ -82,4 +81,3 @@ func (m MoveType) deltaFile() int {
 func (m MoveType) AtDestination() pieceType {
 	return m.board.at(m.destination)
 }
-

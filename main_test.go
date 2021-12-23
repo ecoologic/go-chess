@@ -1,4 +1,4 @@
-package ecoologicChess
+package main
 
 import (
 	"fmt"

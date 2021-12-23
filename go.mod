@@ -1,3 +1,3 @@
-module ecoologicChess
+module main
 
 go 1.17
