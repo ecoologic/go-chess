@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strconv"
 	"strings"
 )
 
@@ -41,43 +42,23 @@ func (b BoardType) at(position positionType) pieceType {
 	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
 }
 
-func (b *BoardType) Move(origin positionType, destination positionType) {
-	b.boardMatrix[matrixRowIndex(destination)][matrixColumnIndex(destination)] =
-		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
-}
-
-func validatePawnMove(move MoveType) bool {
-	switch {
-	case move.deltaFile() == 1 && move.AtDestination() != '_':
-		return true
-	default:
-		return false
-	}
-}
-
 //////////
 
-type MoveType struct {
-	board       BoardType
-	origin      positionType
-	destination positionType
+// squares
+// ??? position -> notation
+type positionType = string
+type pieceType rune
+type boardMatrixType [8][8]pieceType
+
+// board | notation | index
+// file  | letter   | column
+// rank  | number   | row
+func matrixColumnIndex(position positionType) (result int) {
+	result = int(strings.ToUpper(position)[0]) - int('A')
+	return // naked return
 }
 
-func (m MoveType) IsValid() bool {
-	piece := m.board.at(m.origin)
-	// Both black and white
-	switch strings.ToUpper(string(piece)) {
-	case "P":
-		return validatePawnMove(m)
-	default:
-		return false
-	}
-}
-
-func (m MoveType) deltaFile() int {
-	return matrixColumnIndex(m.destination) - matrixColumnIndex(m.origin)
-}
-
-func (m MoveType) AtDestination() pieceType {
-	return m.board.at(m.destination)
+func matrixRowIndex(position positionType) int {
+	rank1to8, _ := strconv.Atoi(string(position[1]))
+	return rank1to8 - 1
 }

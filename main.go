@@ -3,30 +3,7 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
 )
-
-//////////
-
-// squares
-// ??? position -> notation
-type positionType = string
-type pieceType rune
-type boardMatrixType [8][8]pieceType
-
-// board | notation | index
-// file  | letter   | column
-// rank  | number   | row
-func matrixColumnIndex(position positionType) (result int) {
-	result = int(strings.ToUpper(position)[0]) - int('A')
-	return // naked return
-}
-
-func matrixRowIndex(position positionType) int {
-	rank1to8, _ := strconv.Atoi(string(position[1]))
-	return rank1to8 - 1
-}
 
 func main() {
 	board := MakeBoard()

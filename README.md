@@ -7,3 +7,9 @@ A very limited, test driven implementation of the chess rules in Go.
 ```
 go run main.go
 ```
+
+## Test
+
+```
+go test *.go
+```
