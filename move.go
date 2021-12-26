@@ -5,6 +5,7 @@ import "strings"
 func (b *BoardType) Move(origin positionType, destination positionType) {
 	b.boardMatrix[matrixRowIndex(destination)][matrixColumnIndex(destination)] =
 		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
+	b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)] = '_'
 }
 
 //////////
