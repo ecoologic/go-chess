@@ -5,6 +5,20 @@ import (
 	"testing"
 )
 
+func boardHas(board BoardType, origin positionType, expectedAtOrigin pieceType, destination positionType, expectedAtDestination pieceType) bool {
+	return (board.at(origin) == expectedAtOrigin) && (board.at(destination) == expectedAtDestination)
+}
+
+func expectMove(t *testing.T, board BoardType, origin positionType, expectedAtOrigin pieceType, destination positionType, expectedAtDestination pieceType) {
+	if !boardHas(board, origin, expectedAtOrigin, destination, expectedAtDestination) {
+		t.Error(fmt.Sprintf(
+			"Expected move:\n%s == %c (actual %c)\n%s == %c (actual %c)",
+			origin, expectedAtOrigin, board.at(origin),
+			destination, expectedAtDestination, board.at(destination)))
+	}
+
+}
+
 func TestNewBoardMatrix(t *testing.T) {
 	board := MakeBoard()
 	A8 := board.boardMatrix[7][0]
@@ -43,28 +57,18 @@ func TestBoardMovePawnAheadValid(t *testing.T) {
 	origin := "E2"
 	destination := "E3"
 	board := MakeBoard()
-	piece := board.at(origin)
 
 	board.Move(origin, destination)
 
-	if board.at(origin) != '_' && board.at(destination) != piece {
-		t.Error(fmt.Sprintf(
-			"Move Pawn ahead valid error: E2 should be '_' and E3 'p', but was '%c' and '%c'",
-			board.at(origin), board.at(destination)), board)
-	}
+	expectMove(t, board, origin, '_', destination, 'p')
 }
 func TestBoardMovePawnAheadOccupied(t *testing.T) {
 	origin := "E2"
 	destination := "E3"
 	board := MakeBoard()
-	piece := board.at(origin)
 	board.Move("B1", "C3") // Occupy destination
 
 	board.Move(origin, destination)
 
-	if board.at(origin) != piece && board.at(destination) != '_' {
-		t.Error(fmt.Sprintf(
-			"Move Pawn ahead occupied error: origin '%c' and destination '%c'",
-			board.at(origin), board.at(destination)), board)
-	}
+	expectMove(t, board, origin, 'p', destination, '_')
 }
