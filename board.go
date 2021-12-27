@@ -20,14 +20,14 @@ import (
 
 func MakeBoard() BoardType {
 	board := boardMatrixType{
-		{'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}, // [0][0] (1A) White
-		{'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
-		{'_', '_', '_', '_', '_', '_', '_', '_'},
-		{'_', '_', '_', '_', '_', '_', '_', '_'},
-		{'_', '_', '_', '_', '_', '_', '_', '_'}, // Assigned inverted
-		{'_', '_', '_', '_', '_', '_', '_', '_'},
-		{'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
-		{'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'}, // [7][7] (8H) Black
+		{"r", "n", "b", "q", "k", "b", "n", "r"}, // [0][0] (1A) White
+		{"p", "p", "p", "p", "p", "p", "p", "p"},
+		{"_", "_", "_", "_", "_", "_", "_", "_"},
+		{"_", "_", "_", "_", "_", "_", "_", "_"},
+		{"_", "_", "_", "_", "_", "_", "_", "_"}, // Assigned inverted
+		{"_", "_", "_", "_", "_", "_", "_", "_"},
+		{"P", "P", "P", "P", "P", "P", "P", "P"},
+		{"R", "N", "B", "Q", "K", "B", "N", "R"}, // [7][7] (8H) Black
 	}
 	return BoardType{board}
 }
@@ -35,7 +35,7 @@ func MakeBoard() BoardType {
 // squares
 // ??? position -> notation
 type positionType = string
-type pieceType rune
+type pieceType string
 type boardMatrixType [8][8]pieceType
 
 // board | notation | index
@@ -64,5 +64,5 @@ func (b BoardType) at(position positionType) pieceType {
 func (b *BoardType) Move(origin positionType, destination positionType) {
 	b.boardMatrix[matrixRowIndex(destination)][matrixColumnIndex(destination)] =
 		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
-	b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)] = '_'
+	b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)] = "_"
 }

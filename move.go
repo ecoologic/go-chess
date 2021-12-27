@@ -12,7 +12,7 @@ type MoveType struct {
 }
 
 func (m MoveType) String() string {
-	return fmt.Sprintf("Move '%c' from %s to %s", m.board.at(m.origin), m.origin, m.destination)
+	return fmt.Sprintf("Move '%s' from %s to %s", m.board.at(m.origin), m.origin, m.destination)
 }
 
 func (m MoveType) IsValid() bool {
@@ -38,7 +38,7 @@ func (m MoveType) deltaRank() int {
 // TODO: incomplete logic, only implemented for pawn move by two
 func (m MoveType) hasLongCorridor() bool {
 	intermediatePosition := m.destination[0:1] + "3"
-	return m.board.at(intermediatePosition) == '_' && m.board.at(m.destination) == '_'
+	return m.board.at(intermediatePosition) == "_" && m.board.at(m.destination) == "_"
 }
 
 func (m MoveType) AtDestination() pieceType {
