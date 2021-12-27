@@ -32,18 +32,6 @@ func MakeBoard() BoardType {
 	return BoardType{board}
 }
 
-//////////
-
-type BoardType struct {
-	boardMatrix boardMatrixType
-}
-
-func (b BoardType) at(position positionType) pieceType {
-	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
-}
-
-//////////
-
 // squares
 // ??? position -> notation
 type positionType = string
@@ -61,4 +49,20 @@ func matrixColumnIndex(position positionType) (result int) {
 func matrixRowIndex(position positionType) int {
 	rank1to8, _ := strconv.Atoi(string(position[1]))
 	return rank1to8 - 1
+}
+
+//////////
+
+type BoardType struct {
+	boardMatrix boardMatrixType
+}
+
+func (b BoardType) at(position positionType) pieceType {
+	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
+}
+
+func (b *BoardType) Move(origin positionType, destination positionType) {
+	b.boardMatrix[matrixRowIndex(destination)][matrixColumnIndex(destination)] =
+		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
+	b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)] = '_'
 }

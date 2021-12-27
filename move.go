@@ -2,15 +2,6 @@ package main
 
 import "strings"
 
-// TODO: move
-func (b *BoardType) Move(origin positionType, destination positionType) {
-	b.boardMatrix[matrixRowIndex(destination)][matrixColumnIndex(destination)] =
-		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
-	b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)] = '_'
-}
-
-//////////
-
 type MoveType struct {
 	board       BoardType
 	origin      positionType

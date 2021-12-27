@@ -63,14 +63,4 @@ func TestBoardMovePawnAheadValid(t *testing.T) {
 	expectMove(t, board, origin, '_', destination, 'p')
 }
 
-// TODO: move code to move.go
-// func TestBoardMovePawnAheadOccupied(t *testing.T) {
-// 	origin := "E2"
-// 	destination := "E3"
-// 	board := MakeBoard()
-// 	board.Move("B1", "C3") // Occupy destination
-// 
-// 	board.Move(origin, destination)
-// 
-// 	expectMove(t, board, origin, 'p', destination, '_')
-// }
+
