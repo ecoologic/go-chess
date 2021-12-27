@@ -5,11 +5,11 @@ import (
 	"testing"
 )
 
-func boardHas(board BoardType, origin positionType, expectedAtOrigin pieceType, destination positionType, expectedAtDestination pieceType) bool {
+func boardHas(board BoardType, origin notationType, expectedAtOrigin pieceType, destination notationType, expectedAtDestination pieceType) bool {
 	return (board.at(origin) == expectedAtOrigin) && (board.at(destination) == expectedAtDestination)
 }
 
-func expectMove(t *testing.T, board BoardType, origin positionType, expectedAtOrigin pieceType, destination positionType, expectedAtDestination pieceType) {
+func expectMove(t *testing.T, board BoardType, origin notationType, expectedAtOrigin pieceType, destination notationType, expectedAtDestination pieceType) {
 	if !boardHas(board, origin, expectedAtOrigin, destination, expectedAtDestination) {
 		t.Error(fmt.Sprintf(
 			"Expected move:\n%s == %s (actual %s)\n%s == %s (actual %s)",
@@ -39,16 +39,16 @@ func TestNewBoardMatrix(t *testing.T) {
 func TestBoardAt(t *testing.T) {
 	board := MakeBoard()
 
-	pieceByPosition := make(map[positionType]pieceType)
-	pieceByPosition["B8"] = "N"
-	pieceByPosition["F2"] = "p"
-	pieceByPosition["A1"] = "r"
-	pieceByPosition["D8"] = "Q"
-	pieceByPosition["G1"] = "n"
+	pieceByNotation := make(map[notationType]pieceType)
+	pieceByNotation["B8"] = "N"
+	pieceByNotation["F2"] = "p"
+	pieceByNotation["A1"] = "r"
+	pieceByNotation["D8"] = "Q"
+	pieceByNotation["G1"] = "n"
 
-	for position, piece := range pieceByPosition {
-		if board.at(position) != piece {
-			t.Error(fmt.Sprintf("board at %s should be a black knight, but was %s", position, piece))
+	for notation, piece := range pieceByNotation {
+		if board.at(notation) != piece {
+			t.Error(fmt.Sprintf("board at %s should be a black knight, but was %s", notation, piece))
 		}
 	}
 }
