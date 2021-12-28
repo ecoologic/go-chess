@@ -30,6 +30,7 @@ func (m MoveType) deltaFile() int {
 	return matrixColumnIndex(m.destination) - matrixColumnIndex(m.origin)
 }
 
+// TODO: include direction
 func (m MoveType) deltaRank() int {
 	return matrixRowIndex(m.destination) - matrixRowIndex(m.origin)
 }
