@@ -16,9 +16,9 @@ func (m MoveType) String() string {
 }
 
 func (m MoveType) isLegal() bool {
-	piece := m.board.at(m.origin)
+	pieceLetter := m.board.at(m.origin)
 	// Both black and white
-	switch strings.ToUpper(string(piece)) {
+	switch strings.ToUpper(string(pieceLetter)) {
 	case "P":
 		return isPawnMoveLegal(m)
 	default:
@@ -42,31 +42,31 @@ func (m MoveType) hasLongCorridor() bool {
 	return m.board.at(intermediatePosition) == "_" && m.board.at(m.destination) == "_"
 }
 
-func (m MoveType) originPiece() pieceType {
+func (m MoveType) originPieceLetter() pieceLetterType {
 	return m.board.at(m.origin)
 }
 
-func (m MoveType) destinationPiece() pieceType {
+func (m MoveType) destinationPieceLetter() pieceLetterType {
 	return m.board.at(m.destination)
 }
 
 func (m MoveType) isAttack() bool {
-	originRichPiece := RichPiece{letter: m.originPiece()}
-	destinationRichPiece := RichPiece{letter: m.destinationPiece()}
+	originRichPieceLetter := RichPieceLetter{letter: m.originPieceLetter()}
+	destinationRichPieceLetter := RichPieceLetter{letter: m.destinationPieceLetter()}
 
-	return originRichPiece.isOpponent(destinationRichPiece)
+	return originRichPieceLetter.isOpponent(destinationRichPieceLetter)
 }
 
-type RichPiece struct {
+type RichPieceLetter struct {
 	letter string
 }
 
-func (rp RichPiece) isOpponent(otherPiece RichPiece) bool {
-	return rp.isWhite() != otherPiece.isWhite()
+func (rp RichPieceLetter) isOpponent(otherPieceLetter RichPieceLetter) bool {
+	return rp.isWhite() != otherPieceLetter.isWhite()
 }
 
 // A 65, Z 90 - a 97 z 122
-func (rp RichPiece) isWhite() bool {
+func (rp RichPieceLetter) isWhite() bool {
 	return int(rp.letter[0]) < 90
 }
 

@@ -18,7 +18,7 @@ import (
 // X A B C D E F G H
 // white lowercase
 
-// A Piece in every Square
+// A PieceLetter in every Square
 func MakeBoard() BoardType {
 	board := boardMatrixType{
 		{"r", "n", "b", "q", "k", "b", "n", "r"}, // [0][0] (1A) White
@@ -34,8 +34,8 @@ func MakeBoard() BoardType {
 }
 
 type positionType = string
-type pieceType = string
-type boardMatrixType [8][8]pieceType
+type pieceLetterType = string
+type boardMatrixType [8][8]pieceLetterType
 
 // board | position | index
 // file  | letter   | column
@@ -56,7 +56,7 @@ type BoardType struct {
 	boardMatrix boardMatrixType
 }
 
-func (b BoardType) at(position positionType) pieceType {
+func (b BoardType) at(position positionType) pieceLetterType {
 	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
 }
 
