@@ -51,23 +51,8 @@ func (m MoveType) destinationPieceLetter() pieceLetterType {
 }
 
 func (m MoveType) isAttack() bool {
-	originRichPieceLetter := RichPieceLetter{letter: m.originPieceLetter()}
-	destinationRichPieceLetter := RichPieceLetter{letter: m.destinationPieceLetter()}
+	originPiece := Piece{letter: m.originPieceLetter()}
+	destinationPiece := Piece{letter: m.destinationPieceLetter()}
 
-	return originRichPieceLetter.isOpponent(destinationRichPieceLetter)
+	return originPiece.isOpponent(destinationPiece)
 }
-
-type RichPieceLetter struct {
-	letter string
-}
-
-func (rp RichPieceLetter) isOpponent(otherPieceLetter RichPieceLetter) bool {
-	return rp.isWhite() != otherPieceLetter.isWhite()
-}
-
-// A 65, Z 90 - a 97 z 122
-func (rp RichPieceLetter) isWhite() bool {
-	return int(rp.letter[0]) < 90
-}
-
-// TODO: isPawn
