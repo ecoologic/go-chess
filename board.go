@@ -33,20 +33,20 @@ func MakeBoard() BoardType {
 	return BoardType{board}
 }
 
-type notationType = string
+type positionType = string
 type pieceType = string
 type boardMatrixType [8][8]pieceType
 
-// board | notation | index
+// board | position | index
 // file  | letter   | column
 // rank  | number   | row
-func matrixColumnIndex(notation notationType) (result int) {
-	result = int(strings.ToUpper(notation)[0]) - int('A')
+func matrixColumnIndex(position positionType) (result int) {
+	result = int(strings.ToUpper(position)[0]) - int('A')
 	return // naked return
 }
 
-func matrixRowIndex(notation notationType) int {
-	rank1to8, _ := strconv.Atoi(string(notation[1]))
+func matrixRowIndex(position positionType) int {
+	rank1to8, _ := strconv.Atoi(string(position[1]))
 	return rank1to8 - 1
 }
 
@@ -56,11 +56,11 @@ type BoardType struct {
 	boardMatrix boardMatrixType
 }
 
-func (b BoardType) at(notation notationType) pieceType {
-	return b.boardMatrix[matrixRowIndex(notation)][matrixColumnIndex(notation)]
+func (b BoardType) at(position positionType) pieceType {
+	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
 }
 
-func (b *BoardType) Move(origin notationType, destination notationType) {
+func (b *BoardType) Move(origin positionType, destination positionType) {
 	b.boardMatrix[matrixRowIndex(destination)][matrixColumnIndex(destination)] =
 		b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)]
 	b.boardMatrix[matrixRowIndex(origin)][matrixColumnIndex(origin)] = "_"

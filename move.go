@@ -7,8 +7,8 @@ import (
 
 type MoveType struct {
 	board       BoardType
-	origin      notationType
-	destination notationType
+	origin      positionType
+	destination positionType
 }
 
 func (m MoveType) String() string {
@@ -38,8 +38,8 @@ func (m MoveType) deltaRank() int {
 // Long: include destination
 // TODO: incomplete logic, only implemented for pawn move by two
 func (m MoveType) hasLongCorridor() bool {
-	intermediateNotation := m.destination[0:1] + "3"
-	return m.board.at(intermediateNotation) == "_" && m.board.at(m.destination) == "_"
+	intermediatePosition := m.destination[0:1] + "3"
+	return m.board.at(intermediatePosition) == "_" && m.board.at(m.destination) == "_"
 }
 
 func (m MoveType) originPiece() pieceType {

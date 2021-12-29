@@ -1,4 +1,4 @@
-// https://cdn.britannica.com/71/7471-004-C94F7C98/chessmen-Notation-beginning-game-queen-rook-king.jpg
+// https://cdn.britannica.com/71/7471-004-C94F7C98/chessmen-Position-beginning-game-queen-rook-king.jpg
 package main
 
 import (
@@ -20,8 +20,8 @@ func abs(n int) int {
 
 // type MoveType struct {
 // 	board       BoardType
-// 	origin      notationType
-// 	destination notationType
+// 	origin      positionType
+// 	destination positionType
 // }
 
 // func (move MoveType) Unchecked() {
