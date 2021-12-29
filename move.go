@@ -5,9 +5,10 @@ import (
 )
 
 type MoveType struct {
-	board       BoardType
-	origin      positionType
-	destination positionType
+	board         BoardType
+	origin        positionType
+	destination   positionType
+	previousMoves []MoveType
 }
 
 func (m MoveType) String() string {
@@ -36,7 +37,7 @@ func (m MoveType) deltaRank() int {
 // Long: include destination
 // TODO: incomplete logic, only implemented for pawn move by two
 func (m MoveType) hasLongCorridor() bool {
-	intermediatePosition := m.destination[0:1] + "3"
+	intermediatePosition := positionFile(m.destination) + "3"
 	return m.board.at(intermediatePosition).isNil() && m.board.at(m.destination).isNil()
 }
 
@@ -52,6 +53,21 @@ func (m MoveType) isAttack() bool {
 	return m.originPiece().isOpponent(m.destinationPiece())
 }
 
-func (m MoveType) pawnWasPassing() bool {
-	return false
+func (m MoveType) isEnPassant() bool {
+	return positionRank(m.origin) == "2" && positionRank(m.destination) == "4"
+}
+
+func (m MoveType) pawnWasPassing(position positionType) bool {
+	return m.previousMoves[len(m.previousMoves)-1].isEnPassant() &&
+		positionFile(position) == positionFile(m.destination)
+}
+
+//////////////////////////////////////////
+
+func positionFile(position positionType) string {
+	return position[0:1]
+}
+
+func positionRank(position positionType) string {
+	return position[1:2]
 }

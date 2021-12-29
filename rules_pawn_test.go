@@ -17,7 +17,7 @@ func TestRulePawnCantMoveForwardWhenTheDestinationIsOccupied(t *testing.T) {
 	destination := "C3"
 	board := MakeBoard()
 	board.Move("B1", "C3") // Occupy destination
-	move := MoveType{board, origin, destination}
+	move := MoveType{board, origin, destination, []MoveType{}}
 
 	expectMoveIsLegal(t, move, false)
 }
@@ -27,12 +27,12 @@ func TestRulePawnCanOpenByTwoWithAFreeCorridor(t *testing.T) {
 	destination := "C4"
 	board := MakeBoard()
 
-	legalMove := MoveType{board, origin, destination}
+	legalMove := MoveType{board, origin, destination, []MoveType{}}
 	expectMoveIsLegal(t, legalMove, true)
 
 	board.Move("B1", "C3") // Occupy corridor
 
-	illegalMove := MoveType{board, origin, destination}
+	illegalMove := MoveType{board, origin, destination, []MoveType{}}
 	expectMoveIsLegal(t, illegalMove, false)
 }
 
@@ -42,7 +42,7 @@ func TestRulePawnCanEatOnTheAngles(t *testing.T) {
 	origin := "B2"
 	destination := "C3"
 
-	legalMove := MoveType{board, origin, destination}
+	legalMove := MoveType{board, origin, destination, []MoveType{}}
 	expectMoveIsLegal(t, legalMove, true)
 }
 
@@ -53,17 +53,18 @@ func TestRulePawnCantEatBackwards(t *testing.T) {
 	origin := "D4"
 	destination := "C3"
 
-	legalMove := MoveType{board, origin, destination}
+	legalMove := MoveType{board, origin, destination, []MoveType{}}
 	expectMoveIsLegal(t, legalMove, false)
 }
 
 func TestRulePawnCanEatEnPassant(t *testing.T) {
 	board := MakeBoard()
+	previousMove := MoveType{board, "B2", "B4", []MoveType{}}
 	board.Move("C7", "C4") // An opponent pawn on the attack
 	board.Move("B2", "B4") // Pawn opens by two
 	origin := "C4"
 	destination := "B3"
 
-	legalMove := MoveType{board, origin, destination}
+	legalMove := MoveType{board, origin, destination, []MoveType{previousMove}}
 	expectMoveIsLegal(t, legalMove, true)
 }
