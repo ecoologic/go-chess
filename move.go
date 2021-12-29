@@ -51,3 +51,7 @@ func (m MoveType) destinationPiece() Piece {
 func (m MoveType) isAttack() bool {
 	return m.originPiece().isOpponent(m.destinationPiece())
 }
+
+func (m MoveType) pawnWasPassing() bool {
+	return false
+}

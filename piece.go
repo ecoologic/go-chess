@@ -7,7 +7,11 @@ type Piece struct {
 }
 
 func (p Piece) isOpponent(otherPiece Piece) bool {
-	return p.isWhite() != otherPiece.isWhite()
+	if p.isNil() || otherPiece.isNil() {
+		return false
+	} else {
+		return p.isWhite() != otherPiece.isWhite()
+	}
 }
 
 // A 65, Z 90 - a 97 z 122
