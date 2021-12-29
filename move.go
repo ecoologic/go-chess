@@ -20,7 +20,7 @@ func (m MoveType) isLegal() bool {
 	// Both black and white
 	switch strings.ToUpper(string(piece)) {
 	case "P":
-		return legalatePawnMove(m)
+		return isPawnMoveLegal(m)
 	default:
 		return false
 	}
