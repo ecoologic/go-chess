@@ -36,8 +36,6 @@ func TestRulePawnCanOpenByTwoWithAFreeCorridor(t *testing.T) {
 	expectMoveIsLegal(t, illegalMove, false)
 }
 
-// TODO: eat (direction, history for en-passant)
-
 func TestRulePawnCanEatOnTheAngles(t *testing.T) {
 	board := MakeBoard()
 	board.Move("B7", "C3") // An opponent pawn to be eaten
@@ -47,3 +45,16 @@ func TestRulePawnCanEatOnTheAngles(t *testing.T) {
 	legalMove := MoveType{board, origin, destination}
 	expectMoveIsLegal(t, legalMove, true)
 }
+
+func TestRulePawnCantEatBackwards(t *testing.T) {
+	board := MakeBoard()
+	board.Move("B7", "C3") // An opponent pawn to be eaten
+	board.Move("B2", "D4") // Pawn positioned above at an angle
+	origin := "D4"
+	destination := "C3"
+
+	legalMove := MoveType{board, origin, destination}
+	expectMoveIsLegal(t, legalMove, false)
+}
+
+// TODO: eat (direction, history for en-passant)

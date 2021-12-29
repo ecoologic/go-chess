@@ -22,3 +22,11 @@ func (p Piece) isNil() bool {
 func (p Piece) isPawn() bool {
 	return strings.ToUpper(string(p.letter)) == "P"
 }
+
+func (p Piece) adjustDeltaByDirection(delta int) int {
+	if p.isWhite() {
+		return 0 - delta
+	} else {
+		return delta
+	}
+}
