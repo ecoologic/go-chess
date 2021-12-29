@@ -15,12 +15,12 @@ func (m MoveType) String() string {
 	return fmt.Sprintf("Move '%s' from %s to %s", m.board.at(m.origin), m.origin, m.destination)
 }
 
-func (m MoveType) IsValid() bool {
+func (m MoveType) isLegal() bool {
 	piece := m.board.at(m.origin)
 	// Both black and white
 	switch strings.ToUpper(string(piece)) {
 	case "P":
-		return validatePawnMove(m)
+		return legalatePawnMove(m)
 	default:
 		return false
 	}

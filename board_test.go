@@ -53,7 +53,7 @@ func TestBoardAt(t *testing.T) {
 	}
 }
 
-func TestBoardMovePawnAheadValid(t *testing.T) {
+func TestBoardMovePawnAheadLegal(t *testing.T) {
 	origin := "E2"
 	destination := "E3"
 	board := MakeBoard()

@@ -1,7 +1,7 @@
 package main
 
-func validatePawnMove(move MoveType) bool {
-	// fmt.Println(fmt.Sprintf(">>> pawn validatePawnMove"),
+func legalatePawnMove(move MoveType) bool {
+	// fmt.Println(fmt.Sprintf(">>> pawn legalatePawnMove"),
 	// 	move.deltaFile(), move.deltaRank(), move.board.at(move.origin), move.destinationPiece(), move.isAttack())
 	return (
 	// Move by 1

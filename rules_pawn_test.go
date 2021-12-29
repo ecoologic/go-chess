@@ -5,11 +5,11 @@ import (
 	"testing"
 )
 
-func expectMoveIsValid(t *testing.T, move MoveType, expectIsValid bool) {
-	if move.IsValid() == expectIsValid {
+func expectMoveIsLegal(t *testing.T, move MoveType, expectIsLegal bool) {
+	if move.isLegal() == expectIsLegal {
 		return
 	}
-	t.Error(fmt.Sprintf("%v should be valid (%t) but it's the opposite", move.String(), expectIsValid))
+	t.Error(fmt.Sprintf("%v should be legal (%t) but it's the opposite", move.String(), expectIsLegal))
 }
 
 func TestRulePawnCantMoveForwardWhenTheDestinationIsOccupied(t *testing.T) {
@@ -19,7 +19,7 @@ func TestRulePawnCantMoveForwardWhenTheDestinationIsOccupied(t *testing.T) {
 	board.Move("B1", "C3") // Occupy destination
 	move := MoveType{board, origin, destination}
 
-	expectMoveIsValid(t, move, false)
+	expectMoveIsLegal(t, move, false)
 }
 
 func TestRulePawnCanOpenByTwoWithAFreeCorridor(t *testing.T) {
@@ -27,23 +27,23 @@ func TestRulePawnCanOpenByTwoWithAFreeCorridor(t *testing.T) {
 	destination := "C4"
 	board := MakeBoard()
 
-	validMove := MoveType{board, origin, destination}
-	expectMoveIsValid(t, validMove, true)
+	legalMove := MoveType{board, origin, destination}
+	expectMoveIsLegal(t, legalMove, true)
 
 	board.Move("B1", "C3") // Occupy corridor
 
-	invalidMove := MoveType{board, origin, destination}
-	expectMoveIsValid(t, invalidMove, false)
+	illegalMove := MoveType{board, origin, destination}
+	expectMoveIsLegal(t, illegalMove, false)
 }
 
 // TODO: eat (direction, history for en-passant)
 
 func TestRulePawnCanEatOnTheAngles(t *testing.T) {
 	board := MakeBoard()
-	board.Move("B7", "C3") // an opponent pawn to be eaten
+	board.Move("B7", "C3") // An opponent pawn to be eaten
 	origin := "B2"
 	destination := "C3"
 
-	validMove := MoveType{board, origin, destination}
-	expectMoveIsValid(t, validMove, true)
+	legalMove := MoveType{board, origin, destination}
+	expectMoveIsLegal(t, legalMove, true)
 }
