@@ -42,6 +42,32 @@ func (m MoveType) hasLongCorridor() bool {
 	return m.board.at(intermediateNotation) == "_" && m.board.at(m.destination) == "_"
 }
 
-func (m MoveType) AtDestination() pieceType {
+func (m MoveType) originPiece() pieceType {
+	return m.board.at(m.origin)
+}
+
+func (m MoveType) destinationPiece() pieceType {
 	return m.board.at(m.destination)
 }
+
+func (m MoveType) isAttack() bool {
+	originRichPiece := RichPiece{letter: m.originPiece()}
+	destinationRichPiece := RichPiece{letter: m.destinationPiece()}
+
+	return originRichPiece.isOpponent(destinationRichPiece)
+}
+
+type RichPiece struct {
+	letter string
+}
+
+func (rp RichPiece) isOpponent(otherPiece RichPiece) bool {
+	return rp.isWhite() != otherPiece.isWhite()
+}
+
+// A 65, Z 90 - a 97 z 122
+func (rp RichPiece) isWhite() bool {
+	return int(rp.letter[0]) < 90
+}
+
+// TODO: isPawn

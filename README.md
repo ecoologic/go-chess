@@ -5,11 +5,11 @@ A very limited, test driven implementation of the chess rules in Go.
 ## Run
 
 ```
-go run main.go
+go run .
 ```
 
 ## Test
 
 ```
-go test *.go
+go test *.go -v
 ```

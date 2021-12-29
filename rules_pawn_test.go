@@ -38,13 +38,12 @@ func TestRulePawnCanOpenByTwoWithAFreeCorridor(t *testing.T) {
 
 // TODO: eat (direction, history for en-passant)
 
-func TestRulePawnCanEatOnTheAngle(t *testing.T) {
+func TestRulePawnCanEatOnTheAngles(t *testing.T) {
 	board := MakeBoard()
 	board.Move("B7", "C3") // an opponent pawn to be eaten
-	origin := "C2"
+	origin := "B2"
 	destination := "C3"
 
 	validMove := MoveType{board, origin, destination}
 	expectMoveIsValid(t, validMove, true)
-
 }
