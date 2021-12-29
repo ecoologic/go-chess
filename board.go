@@ -56,8 +56,8 @@ type BoardType struct {
 	boardMatrix boardMatrixType
 }
 
-func (b BoardType) at(position positionType) pieceLetterType {
-	return b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]
+func (b BoardType) at(position positionType) Piece {
+	return Piece{b.boardMatrix[matrixRowIndex(position)][matrixColumnIndex(position)]}
 }
 
 func (b *BoardType) Move(origin positionType, destination positionType) {

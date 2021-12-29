@@ -9,7 +9,7 @@ import (
 func main() {
 	board := MakeBoard()
 	fmt.Println("The board is: ", board)
-	fmt.Println("D8 is: ", string(board.at("D8")))
+	fmt.Println("D8 is: ", string(board.at("D8").letter))
 }
 
 func abs(n int) int {

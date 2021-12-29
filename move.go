@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 type MoveType struct {
@@ -16,10 +15,10 @@ func (m MoveType) String() string {
 }
 
 func (m MoveType) isLegal() bool {
-	pieceLetter := m.board.at(m.origin)
+	piece := m.board.at(m.origin)
 	// Both black and white
-	switch strings.ToUpper(string(pieceLetter)) {
-	case "P":
+	switch {
+	case piece.isPawn():
 		return isPawnMoveLegal(m)
 	default:
 		return false
@@ -39,20 +38,17 @@ func (m MoveType) deltaRank() int {
 // TODO: incomplete logic, only implemented for pawn move by two
 func (m MoveType) hasLongCorridor() bool {
 	intermediatePosition := m.destination[0:1] + "3"
-	return m.board.at(intermediatePosition) == "_" && m.board.at(m.destination) == "_"
+	return m.board.at(intermediatePosition).isNil() && m.board.at(m.destination).isNil()
 }
 
-func (m MoveType) originPieceLetter() pieceLetterType {
+func (m MoveType) originPiece() Piece {
 	return m.board.at(m.origin)
 }
 
-func (m MoveType) destinationPieceLetter() pieceLetterType {
+func (m MoveType) destinationPiece() Piece {
 	return m.board.at(m.destination)
 }
 
 func (m MoveType) isAttack() bool {
-	originPiece := Piece{letter: m.originPieceLetter()}
-	destinationPiece := Piece{letter: m.destinationPieceLetter()}
-
-	return originPiece.isOpponent(destinationPiece)
+	return m.originPiece().isOpponent(m.destinationPiece())
 }

@@ -6,7 +6,7 @@ import (
 )
 
 func boardHas(board BoardType, origin positionType, expectedAtOrigin pieceLetterType, destination positionType, expectedAtDestination pieceLetterType) bool {
-	return (board.at(origin) == expectedAtOrigin) && (board.at(destination) == expectedAtDestination)
+	return (board.at(origin) == Piece{expectedAtOrigin}) && (board.at(destination) == Piece{expectedAtDestination})
 }
 
 func expectMove(t *testing.T, board BoardType, origin positionType, expectedAtOrigin pieceLetterType, destination positionType, expectedAtDestination pieceLetterType) {
@@ -47,7 +47,7 @@ func TestBoardAt(t *testing.T) {
 	pieceLetterByPosition["G1"] = "n"
 
 	for position, pieceLetter := range pieceLetterByPosition {
-		if board.at(position) != pieceLetter {
+		if board.at(position).letter != pieceLetter {
 			t.Error(fmt.Sprintf("board at %s should be a black knight, but was %s", position, pieceLetter))
 		}
 	}

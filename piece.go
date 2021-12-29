@@ -1,5 +1,7 @@
 package main
 
+import "strings"
+
 type Piece struct {
 	letter string
 }
@@ -13,4 +15,10 @@ func (p Piece) isWhite() bool {
 	return int(p.letter[0]) < 90
 }
 
-// TODO: isPawn
+func (p Piece) isNil() bool {
+	return p.letter == "_"
+}
+
+func (p Piece) isPawn() bool {
+	return strings.ToUpper(string(p.letter)) == "P"
+}
