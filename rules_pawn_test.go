@@ -53,8 +53,8 @@ func TestRulePawnCantEatBackwards(t *testing.T) {
 	origin := "D4"
 	destination := "C3"
 
-	legalMove := MoveType{board, origin, destination, []MoveType{}}
-	expectMoveIsLegal(t, legalMove, false)
+	move := MoveType{board, origin, destination, []MoveType{}}
+	expectMoveIsLegal(t, move, false)
 }
 
 func TestRulePawnCanEatEnPassant(t *testing.T) {
@@ -67,4 +67,27 @@ func TestRulePawnCanEatEnPassant(t *testing.T) {
 
 	legalMove := MoveType{board, origin, destination, []MoveType{previousMove}}
 	expectMoveIsLegal(t, legalMove, true)
+}
+
+func TestRulesForBlack(t *testing.T) {
+	board := MakeBoard()
+
+	// Move by 1
+	origin := "C7"
+	destination := "C6"
+	move := MoveType{board, origin, destination, []MoveType{}}
+	expectMoveIsLegal(t, move, true)
+
+	// Open by 2
+	origin = "D7"
+	destination = "D5"
+	move = MoveType{board, origin, destination, []MoveType{}}
+	expectMoveIsLegal(t, move, true)
+
+	// Can't move backwards
+	board.Move("E7", "E5")
+	origin = "E5"
+	destination = "E6"
+	move = MoveType{board, origin, destination, []MoveType{}}
+	expectMoveIsLegal(t, move, false)
 }
